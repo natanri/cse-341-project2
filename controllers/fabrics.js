@@ -4,6 +4,7 @@ const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async(req, res) => {
+    //swagger.tags=['Fabric']
     const result = await mongodb.getDatabase().db().collection('fabrics').find();
     result.toArray().then((fabrics) => {
       res.setHeader('Content-Type', 'application/json');
@@ -12,6 +13,7 @@ const getAll = async(req, res) => {
 };
 
 const getSingle = async(req, res) => {
+    //swagger.tags=['Fabric']
     const fabricsId = new ObjectId(req.params.id);
     const result = await mongodb.getDatabase().db().collection('fabrics').find({ _id: fabricsId });
     result.toArray().then((fabrics) => {
@@ -20,7 +22,8 @@ const getSingle = async(req, res) => {
     });
 };
 
-createFabric = async(req, res) => {    ;
+createFabric = async(req, res) => { 
+    //swagger.tags=['Fabric']   
     const fabric = {
         fabric: req.body.fabric,
         length: req.body.length,
@@ -40,6 +43,7 @@ createFabric = async(req, res) => {    ;
 };
 
 updateFabric = async(req, res) => {
+    //swagger.tags=['Fabric']
     const fabricsId = new ObjectId(req.params.id);
     const fabric = {
         fabric: req.body.fabric,
@@ -60,6 +64,7 @@ updateFabric = async(req, res) => {
 };
 
 deleteFabric = async(req, res) => {
+    //swagger.tags=['Fabric']
     const fabricsId = new ObjectId(req.params.id);
     const fabric = {
         fabric: req.body.fabric,
