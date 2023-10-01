@@ -1,19 +1,21 @@
 const mongodb = require('../data/database');
+
+//This is a primary key
 const ObjectId = require('mongodb').ObjectId;
 
-const getAll = async( req, res) => {
+const getAll = async(req, res) => {
     const result = await mongodb.getDatabase().db().collection('fabrics').find();
     result.toArray().then((fabrics) => {
-      res.setHeader('Content-Type', 'appliation/json');
+      res.setHeader('Content-Type', 'application/json');
       res.status(200).json(fabrics);
     });
 };
 
-const getSingle = async( req, res) => {
+const getSingle = async(req, res) => {
     const fabricsId = new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('fabrics').find({_id: fabricsId});
+    const result = await mongodb.getDatabase().db().collection('fabrics').find({ _id: fabricsId });
     result.toArray().then((fabrics) => {
-      res.setHeader('Content-Type', 'appliation/json');
+      res.setHeader('Content-Type', 'application/json');
       res.status(200).json(fabrics[0]);
     });
 };
