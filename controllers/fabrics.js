@@ -87,7 +87,7 @@ updateFabric = async(req, res) => {
 
 deleteFabric = async(req, res) => {
     if(!ObjectId.isValid(req.params.id)){
-        res.status(400).json('Must use a valid fabric id to delete a contact');
+        res.status(400).json('Must use a valid fabric id to delete a fabric');
     }
     //swagger.tags=['Fabric']
     const fabricsId = new ObjectId(req.params.id);
