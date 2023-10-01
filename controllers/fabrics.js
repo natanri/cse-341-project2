@@ -20,7 +20,68 @@ const getSingle = async(req, res) => {
     });
 };
 
+createFabric = async(req, res) => {    ;
+    const fabric = {
+        fabric: req.body.fabric,
+        length: req.body.length,
+        width: req.body.width,
+        color: req.body.color,
+        weight: req.body.weight,
+        name: req.body.name,
+        composition: req.body.composition
+    };
+    const response = await mongodb.getDatabase().db().collection('fabrics').replaceOne({ _id: fabricsId}, fabric);
+    if(response.acknowledged) {
+        res.status(204).send();
+    }else {
+        res.status(500).json(response.error || "Some error ocurred while updating the fabric.");
+    }
+
+};
+
+updateFabric = async(req, res) => {
+    const fabricsId = new ObjectId(req.params.id);
+    const fabric = {
+        fabric: req.body.fabric,
+        length: req.body.length,
+        width: req.body.width,
+        color: req.body.color,
+        weight: req.body.weight,
+        name: req.body.name,
+        composition: req.body.composition
+    };
+    const response = await mongodb.getDatabase().db().collection('fabrics').replaceOne({ _id: fabricsId}, fabric);
+    if(response.modifiedCount > 0) {
+        res.status(204).send();
+    }else {
+        res.status(500).json(response.error || "Some error ocurred while updating the fabric.");
+    }
+
+};
+
+deleteFabric = async(req, res) => {
+    const fabricsId = new ObjectId(req.params.id);
+    const fabric = {
+        fabric: req.body.fabric,
+        length: req.body.length,
+        width: req.body.width,
+        color: req.body.color,
+        weight: req.body.weight,
+        name: req.body.name,
+        composition: req.body.composition
+    };
+    const response = await mongodb.getDatabase().db().collection('fabrics').replaceOne({ _id: fabricsId}, true);
+    if(response.modifiedCount > 0) {
+        res.status(204).send();
+    }else {
+        res.status(500).json(response.error || "Some error ocurred while updating the fabric.");
+    }
+
+};
 module.exports = {
     getAll,
-    getSingle
+    getSingle,
+    createFabric,
+    updateFabric,
+    deleteFabric
 }
