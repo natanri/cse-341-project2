@@ -20,6 +20,9 @@ const getAll = async(req, res) => {
 };
 
 const getSingle = async(req, res) => {
+    if(!ObjectId.isValid(req.params.id)){
+        res.status(400).json('Must use a valid fabric id to find a contact');
+    }
     //swagger.tags=['Fabric']
     const fabricsId = new ObjectId(req.params.id);
     mongodb
@@ -45,7 +48,8 @@ createFabric = async(req, res) => {
         color: req.body.color,
         weight: req.body.weight,
         name: req.body.name,
-        composition: req.body.composition
+        composition: req.body.composition,
+        email: req.body.email
     };
     const response = await mongodb.getDatabase().db().collection('fabrics').replaceOne({ _id: fabricsId}, fabric);
     if(response.acknowledged) {
@@ -57,6 +61,9 @@ createFabric = async(req, res) => {
 };
 
 updateFabric = async(req, res) => {
+    if(!ObjectId.isValid(req.params.id)){
+        res.status(400).json('Must use a valid fabric id to update a contact');
+    }
     //swagger.tags=['Fabric']
     const fabricsId = new ObjectId(req.params.id);
     const fabric = {
@@ -66,7 +73,8 @@ updateFabric = async(req, res) => {
         color: req.body.color,
         weight: req.body.weight,
         name: req.body.name,
-        composition: req.body.composition
+        composition: req.body.composition,
+        email: req.body.email
     };
     const response = await mongodb.getDatabase().db().collection('fabrics').replaceOne({ _id: fabricsId}, fabric);
     if(response.modifiedCount > 0) {
@@ -78,6 +86,9 @@ updateFabric = async(req, res) => {
 };
 
 deleteFabric = async(req, res) => {
+    if(!ObjectId.isValid(req.params.id)){
+        res.status(400).json('Must use a valid fabric id to delete a contact');
+    }
     //swagger.tags=['Fabric']
     const fabricsId = new ObjectId(req.params.id);
     const fabric = {
@@ -87,7 +98,8 @@ deleteFabric = async(req, res) => {
         color: req.body.color,
         weight: req.body.weight,
         name: req.body.name,
-        composition: req.body.composition
+        composition: req.body.composition,
+        email: req.body.email
     };
     const response = await mongodb.getDatabase().db().collection('fabrics').replaceOne({ _id: fabricsId}, true);
     if(response.deleteCount > 0) {
