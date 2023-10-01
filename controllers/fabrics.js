@@ -5,20 +5,34 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async(req, res) => {
     //swagger.tags=['Fabric']
-    const result = await mongodb.getDatabase().db().collection('fabrics').find();
-    result.toArray().then((fabrics) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(fabrics);
+    mongodb
+        .getDatabase()
+        .db()
+        .collection('fabrics')
+        .find()
+        .toArray((err, fabrics) => {
+            if(err){
+                res.status(400).json({ massage: err });
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(fabrics);
     });
 };
 
 const getSingle = async(req, res) => {
     //swagger.tags=['Fabric']
     const fabricsId = new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('fabrics').find({ _id: fabricsId });
-    result.toArray().then((fabrics) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(fabrics[0]);
+    mongodb
+        .getDatabase()
+        .db()
+        .collection('fabrics')
+        .find({ _id: fabricsId })
+        .toArray((err, fabrics) => {
+            if(err){
+                res.status(400).json({ message: err });
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(fabrics[0]);
     });
 };
 
@@ -76,7 +90,7 @@ deleteFabric = async(req, res) => {
         composition: req.body.composition
     };
     const response = await mongodb.getDatabase().db().collection('fabrics').replaceOne({ _id: fabricsId}, true);
-    if(response.modifiedCount > 0) {
+    if(response.deleteCount > 0) {
         res.status(204).send();
     }else {
         res.status(500).json(response.error || "Some error ocurred while updating the fabric.");
