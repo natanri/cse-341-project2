@@ -5,7 +5,7 @@
     "description": "Fabric Api",
     "version": "1.0.0"
   },
-  "host": "https://project2-9ndj.onrender.com",
+  "host": "project2-9ndj.onrender.com",
   "basePath": "/",
   "schemes": [    
     "https"
