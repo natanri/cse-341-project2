@@ -4,7 +4,7 @@ const mongodb = require('./data/database');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const passport = require('passport');
-const session = require('express-session');
+const session = require('cookie-session');
 const GitHubStrategy = require('passport-github2').Strategy;
 const cors = require('cors');
 
