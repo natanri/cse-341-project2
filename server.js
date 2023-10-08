@@ -2,9 +2,9 @@
 const express = require('express');
 const mongodb = require('./data/database');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv').config();
+//const dotenv = require('dotenv').config();
 const passport = require('passport');
-const session = require('cookie-session');
+const session = require('express-session');
 const GitHubStrategy = require('passport-github2').Strategy;
 const cors = require('cors');
 
@@ -57,7 +57,7 @@ passport.deserializeUser((id, done) => {
     done(null, user);
 });
 
-app.get('/', (req, res) => { res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}`: 'Logged Out')});
+app.get('/', (req, res) => { res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : 'Logged Out')});
 
 app.get('/github/callback', passport.authenticate('github', {
     failureRedirect: '/api-docs', session: false}),
